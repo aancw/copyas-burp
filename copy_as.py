@@ -21,18 +21,18 @@ class MenuFactory(IContextMenuFactory):
     def createMenuItems(self, inv):
         items = ArrayList()
         menu_entries = [
-            ("Copy As: Python (requests)", self._python),
-            ("Copy As: Go (net/http)", self._go),
-            ("Copy As: cURL", self._curl),
-            ("Copy As: JavaScript (fetch)", self._fetch),
-            ("Copy As: JavaScript (axios)", self._axios),
-            ("Copy As: PHP (curl)", self._php),
-            ("Copy As: Ruby (net/http)", self._ruby),
-            ("Copy As: C# (HttpClient)", self._csharp),
-            ("Copy As: Java (HttpClient)", self._java),
-            ("Copy As: PowerShell", self._powershell),
-            ("Copy As: Rust (reqwest)", self._rust),
-            ("Copy As: wget", self._wget),
+            ("Python (requests)", self._python),
+            ("Go (net/http)", self._go),
+            ("cURL", self._curl),
+            ("JavaScript (fetch)", self._fetch),
+            ("JavaScript (axios)", self._axios),
+            ("PHP (curl)", self._php),
+            ("Ruby (net/http)", self._ruby),
+            ("C# (HttpClient)", self._csharp),
+            ("Java (HttpClient)", self._java),
+            ("PowerShell", self._powershell),
+            ("Rust (reqwest)", self._rust),
+            ("wget", self._wget),
         ]
         for label, fn in menu_entries:
             mi = JMenuItem(label)
