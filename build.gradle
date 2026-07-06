@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.copyas.burp'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'net.portswigger.burp.extensions:montoya-api:2025.5'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Burp-Extension-Name': 'CopyAs',
+            'Burp-Extension-Version': project.version,
+            'Main-Class': 'com.copyas.burp.CopyAsExtension'
+        )
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
