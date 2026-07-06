@@ -20,10 +20,17 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Build
-        run: gradle --no-daemon clean jar
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10'
 
-      - name: Rename artifact
+      - name: Build
+        run: |
+          gradle --no-daemon clean jar
+          echo "--- build/libs contents ---"
+          ls -la build/libs/
+
+      - name: Stage artifact
         run: cp build/libs/copyas-burp.jar copyas-burp.jar
 
       - uses: softprops/action-gh-release@v2
