@@ -2,6 +2,9 @@
 
 Right-click any HTTP request in Burp Suite and instantly copy it as ready-to-run code. No more manually rewriting requests.
 
+[![GitHub release](https://img.shields.io/github/v/release/aancw/copyas-burp)](https://github.com/aancw/copyas-burp/releases/latest)
+[![Download JAR](https://img.shields.io/badge/download-latest%20JAR-blue)](https://github.com/aancw/copyas-burp/releases/latest/download/copyas-burp.jar)
+
 ![CopyAs in action](screenshot.png)
 
 ## Supported Formats
@@ -29,9 +32,21 @@ Right-click any HTTP request in Burp Suite and instantly copy it as ready-to-run
 - Preserves headers, cookies, body, and content type
 - JSON body detection with proper serialization per language
 - Standalone CLI converter with `--format` flag
-- Supports Burp Suite 2020+ (Legacy API)
+- Supports Burp Suite 2023.10+ (Montoya API) — see `copy_as.py` for legacy Jython
 
 ## Installation
+
+### Burp Suite Extension (Montoya API) — Recommended
+
+1. Download `copyas-burp.jar` from the [latest release](https://github.com/aancw/copyas-burp/releases/latest/download/copyas-burp.jar) (or build it yourself: `gradle clean jar`)
+2. In Burp Suite -> **Extensions** -> **Installed** -> **Add**
+3. Set Extension type to **Java**
+4. Select the downloaded `copyas-burp.jar`
+5. Done!
+
+### Burp Suite Extension (Legacy / Jython)
+
+The original Jython extension is still in `copy_as.py` for older Burp versions:
 
 1. In Burp Suite -> **Extensions** -> **Installed** -> **Add**
 2. Set Extension type to **Python**
@@ -44,7 +59,7 @@ Right-click any HTTP request in Burp Suite and instantly copy it as ready-to-run
 
 1. Send any request to Proxy/Repeater/Target
 2. Right-click the request
-3. Select **Copy As** -> choose your language
+3. Select **CopyAs** -> choose your language
 4. Code is copied to clipboard
 
 ### Standalone CLI Converter
@@ -393,12 +408,15 @@ wget -q -O - \
 
 | File | Description |
 |------|-------------|
-| `copy_as.py` | Burp Suite extension (Jython) |
+| `src/main/java/com/copyas/burp/CopyAsExtension.java` | Burp Suite extension (Java, Montoya API) |
+| `build.gradle` / `settings.gradle` | Gradle build for the Java extension |
+| `copy_as.py` | Burp Suite extension (Jython, legacy API) |
 | `converter.py` | Standalone CLI converter (Python 3) |
 
 ## Requirements
 
-- **Burp Suite Extension**: Burp Suite 2020+ with Jython standalone JAR configured
+- **Burp Suite Extension (Java)**: Burp Suite 2023.10+ with JDK 17+; Montoya API `net.portswigger.burp.extensions:montoya-api:2025.5` on classpath at build time
+- **Burp Suite Extension (Jython)**: Burp Suite 2020+ with Jython standalone JAR configured
 - **CLI Converter**: Python 3.6+ (no external dependencies)
 
 ## Contributing
